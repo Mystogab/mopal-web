@@ -25,6 +25,7 @@ const saySomething = () => alert("Funca");
 
 const getUser = () => document.getElementById("user").value;
 const getPass = () => document.getElementById("pass").value;
+const getButton = () => document.getElementById("logButton");
 
 const api = 'http://localhost:3000/'
 
@@ -32,15 +33,28 @@ const api = 'http://localhost:3000/'
 const doLogin = () => {
   let user = getUser();
   let pass = getPass();
+  let buttom = getButton();
   //alert(`Intentando login con usuario: ${user} y password: ${pass}`);
+
+  buttom.disabled = true;
 
   const body = {user, pass};
 
   request({method: "POST", body: JSON.stringify(body), url: api + "user/login"})
-    .then(console.log)
+    .then(res => {
+      localStorage.mopalToken = res.token;
+      window.location = '/home';
+    })
     .catch(err => {
       let errorPlace = document.getElementById("errorPlace");
-      let obj = JSON.parse(err);
+      let obj;
+      try {
+        obj = JSON.parse(err);
+        buttom.disabled = false;
+      } catch(e) {
+        obj = { msg: 'Server conection error.' };
+        buttom.disabled = false;
+      }
       errorPlace.style.visibility = "visible";
       errorPlace.innerHTML = "<h3>Error:</h3><p>" + obj.msg + "</p>";
     });
