@@ -1,1 +1,0 @@
-if (!localStorage.mopalToken) window.location = '/coming-soon.html';
