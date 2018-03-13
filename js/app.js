@@ -41,9 +41,10 @@ const doLogin = () => {
   const body = {user, pass};
 
   request({method: "POST", body: JSON.stringify(body), url: api + "user/login"})
+    .then(JSON.parse)
     .then(res => {
       localStorage.mopalToken = res.token;
-      window.location = '/home';
+      window.location = '/home?token=' + res.token;
     })
     .catch(err => {
       let errorPlace = document.getElementById("errorPlace");

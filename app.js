@@ -21,8 +21,26 @@ app.use('/js*', (req, res) => {
 
 //html pages
 
+app.get('/', (req, res) => {
+  res.redirect('/home');
+});
+
 app.use('/login', (req, res) => {
   res.sendFile(path.join(__dirname + '/index.html'));
+});
+
+app.get('/home', (req, res) => {
+  if(req.query.token) {
+    token = req.query.token;
+    //validate(token)
+    console.log(token);
+    if(token === 'VALID') return res.sendFile(__dirname + '/spa.html');
+    if(token === 'invalid') res.redirect('/login');
+    res.redirect('/login');
+  } else {
+    res.sendFile(path.join(__dirname + '/loader.html'));
+  }
+  res.sendFile(path.join(__dirname + '/loader.html'));
 });
 
 
