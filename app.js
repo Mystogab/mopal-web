@@ -43,6 +43,10 @@ app.get('/home', (req, res) => {
   res.sendFile(path.join(__dirname + '/loader.html'));
 });
 
+app.get('/subscribe', (req, res) => {
+  res.sendFile(path.join(__dirname + '/views/subscribe.html'));
+});
+
 
 
 module.exports = app;
