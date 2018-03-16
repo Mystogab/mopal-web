@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
-html {height: 100%; overflow-y: hidden}
+html {height: 100%}
 </style>
 <script src="js/utils.js"></script>
 <script src="js/spa.js"></script>
@@ -53,21 +53,30 @@ html {height: 100%; overflow-y: hidden}
     <h5><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
   </header>
 
-  <iframe id="prueba" src="asd" style="height:100%;width:100%;border:none"></iframe>
+  <iframe id="mainFrame" src="asd" style="height:100%;width:100%;border:none"></iframe>
 
-      <div id="id01" class="w3-modal">
+
+  <!-- Modal for blockUI -->
+  <div id="blockUI" class="w3-modal" style="z-index:5">
+    <div class="w3-modal-content">
+      <div class="w3-container"></div>
+    </div>
+  </div>
+
+  <!-- Modal for inscriptions -->
+      <div id="subModal" class="w3-modal">
         <div class="w3-modal-content w3-card w3-animate-top" style="max-width:600px">
           <div class="w3-container">
-            <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright w3-red">&times;</span>
+            <span id="subFormXClose" onclick="document.getElementById('subModal').style.display='none'" class="w3-button w3-display-topright w3-red">&times;</span>
             <p><h2>Inscripcion</h2></p>
-            <p>Some text. Some text. Some text.</p>
+            <p>A continuación ingrese los datos del invitado a inscribir:</p>
+            asdasd
           </div>
         </div>
       </div>
-
-
-  <!-- End page content -->
+ <!-- End of modal inscription -->
 </div>
+  <!-- End page content -->
 
 <script>
 // Get the Sidebar

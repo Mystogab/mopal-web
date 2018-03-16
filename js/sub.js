@@ -1,8 +1,12 @@
 document.addEventListener('DOMContentLoaded', init, false);
 
 
+const modalStart = (guestId) => {
+  alert(guestId);
+}
+
 const drawTableElement = (el) => {
-  return `<tr onclick="alert('${el.name}')">
+  return `<tr onclick="modalStart('${el.name}')">
     <td>${el.name}</td>
     <td>${el.surname}</td>
     <td>${el.age}</td>

@@ -25,7 +25,8 @@ function init () {
   data.views.userCorner = document.getElementById("userSpace");
   userCorenerP = request({ headers: data.headers, url: data.apiUrl + 'user/info'})
     .then(JSON.parse)
-    .then((res) => data.views.userCorner.innerHTML = res.name);
+    .then((user) => data.views.userCorner.innerHTML = user.name)
+    .then((user) => data.user = user);
   
 };
 
@@ -39,17 +40,55 @@ async function apiRequest (path, method, body) {
   return request(req);
 };
 
+//Call to modal subscribe:
+function modalSubOpen() {
+  //document.getElementById('modalContainer').reset();
+  document.getElementById('subModal').style.display='block';
+};
+
+const blockUi = () => {
+  const blockDiv = document.getElementById('blockUI');
+  if (blockDiv.style.display == 'block') blockDiv.style.display = 'none';
+  else blockDiv.style.display = 'block';
+};
+
+//Function that extract data from the subscription modal form:
+const extractDataFromSubForm = () => {
+  return {
+    name: document.getElementById('subFormName').value,
+    surname: document.getElementById('SubFormSurname').value,
+    age: document.getElementById('SubFormAge').value,
+    phone: document.getElementById('SubFormPhone').value,
+    easters: document.getElementById('SubFormEasters').value,
+    contribution: document.getElementById('SubFormContribution').checked,
+    sex: document.getElementById('lalala').checked
+  };
+};
+
+//Subscribe Handler:
+async function subscribeGuest() {
+  //first block UI:
+  //blockUi();
+  //then fetch data:
+  const dataFormSubsc = extractDataFromSubForm();
+  alert(JSON.stringify(dataFormSubsc));
+}
+
 //set handlers for bar click trigger:
 const handlers = {
   barSuscrib: () => {
-    document.getElementById("prueba").src = '/subscribe';
+    document.getElementById("mainFrame").src = '/subscribe';
     document.getElementById("fmHeader")
       .innerHTML = '<h5><b><i class="fa fa-user-plus"></i> Inscripciones</b></h5>';
   },
   barHome: () => {
-    document.getElementById("prueba").src = '/zaraza';
+    document.getElementById("mainFrame").src = '/zaraza';
     document.getElementById("fmHeader")
     .innerHTML = '<h5><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>';
+  },
+  barExit: () => {
+    localStorage.clear();
+    window.location = '/login';
   }
 };
 
