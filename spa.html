@@ -70,7 +70,117 @@ html {height: 100%}
             <span id="subFormXClose" onclick="document.getElementById('subModal').style.display='none'" class="w3-button w3-display-topright w3-red">&times;</span>
             <p><h2>Inscripcion</h2></p>
             <p>A continuación ingrese los datos del invitado a inscribir:</p>
-            asdasd
+            <form id="subFormMain">
+
+<div class="w3-row-padding">
+  <div class="w3-third">
+    <label>Nombre: </label>
+    <input id="subFormName" class="w3-input w3-border" type="text" placeholder="Juan">
+  </div>
+  <div class="w3-third">
+    <label>Apellido: </label>
+    <input id="subFormSurname" class="w3-input w3-border" type="text" placeholder="Perez">
+  </div>
+  <div class="w3-third">
+    <label></label>
+  </div>
+</div>
+
+<p></p>
+
+<div class="w3-row-padding">
+  <div class="w3-third">
+    <label>Edad: </label>
+    <input id="subFormAge" class="w3-input w3-border" type="number" placeholder="33">
+  </div>
+  <div class="w3-third">
+    <label>Telefono: </label>
+    <input id="subFormPhone" class="w3-input w3-border" type="number" placeholder="1101010101">
+  </div>
+  <div class="w3-third">
+    <label>N° Pascuas: </label>
+    <input id="subFormEasters" class="w3-input w3-border" type="number" value="1">
+  </div>
+</div>
+
+<p></p>
+
+<div class="w3-row-padding">
+  <div id="test" class="w3-third">
+    <form class="w3-container">
+      <h4>Sexo</h4>
+      <p>
+      <label>
+        <input id="sexMale" class="w3-radio" type="radio" name="gender" value="male" checked>
+      Hombre
+      </label></p>
+      <p>
+      <label>
+      <input id="sexFemale" class="w3-radio" type="radio" name="gender" value="female">
+      Mujer
+      </label></p>
+      <p>
+      <label>
+      <input id="sexUnk" class="w3-radio" type="radio" name="gender" value="">
+      NS/NC
+      </label></p>
+    </form>
+  </div>
+  <div class="w3-third">
+    <p>
+    <label>
+      <input id="subFormContribution" class="w3-check" type="checkbox">
+      Contribución
+    </label></p>
+  </div>
+  <div class="w3-third">
+    <label>Invitado por: </label>
+    <input id="subFormGuestBy" class="w3-input w3-border" type="text" placeholder="Pepe">
+  </div>
+</div>
+
+<p></p>
+
+<div class="w3-row-padding">
+  <div class="w3-third">
+    <form id="subFormWalkIn" class="w3-container">
+      Camina en: 
+      <select class="w3-select w3-border" name="option">
+        <option value="1" selected>Ninguna</option>
+        <option value="2">Camino</option>
+        <option value="3">INI1A</option>
+        <option value="4">INI1B</option>
+      </select>
+    </form>
+  </div>
+  <div class="w3-third">
+    <form id="subFormEasterKind" class="w3-container">
+      Tipo de Pascua:
+      <select class="w3-select w3-border" name="option">
+        <option value="" disabled selected>none</option>
+        <option value="1">Jovenes</option>
+        <option value="2">Intermedio</option>
+        <option value="3">Adultos</option>
+        <option value="4">TODO</option>
+      </select>
+    </form>
+  </div>
+  <div class="w3-third">
+    <label>Adulto responsable: </label>
+    <input id="subFormAdultResponsable" class="w3-input w3-border" type="text" placeholder="Tutor" readonly disabled>
+  </div>
+</div>
+
+<p></p>
+
+<div class="w3-display-container" style="float:right;right:10px">
+  <div class="w3-padding-16">
+    <button class="w3-button w3-red">Cancelar</button>
+    <button class="w3-button w3-green" onclick="subscribeGuest()">Inscribir</button>
+  </div>
+</div>
+
+</form>
           </div>
         </div>
       </div>

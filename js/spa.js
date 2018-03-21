@@ -42,7 +42,7 @@ async function apiRequest (path, method, body) {
 
 //Call to modal subscribe:
 function modalSubOpen() {
-  //document.getElementById('modalContainer').reset();
+  document.getElementById('subFormMain').reset();
   document.getElementById('subModal').style.display='block';
 };
 
@@ -54,14 +54,19 @@ const blockUi = () => {
 
 //Function that extract data from the subscription modal form:
 const extractDataFromSubForm = () => {
+  //get sex:
+  let sex = document.getElementById('sexMale').checked ? "male" : document.getElementById('sexFemale').checked ? "female" : "";
   return {
     name: document.getElementById('subFormName').value,
-    surname: document.getElementById('SubFormSurname').value,
-    age: document.getElementById('SubFormAge').value,
-    phone: document.getElementById('SubFormPhone').value,
-    easters: document.getElementById('SubFormEasters').value,
-    contribution: document.getElementById('SubFormContribution').checked,
-    sex: document.getElementById('lalala').checked
+    surname: document.getElementById('subFormSurname').value,
+    age: document.getElementById('subFormAge').value,
+    phone: document.getElementById('subFormPhone').value,
+    easters: document.getElementById('subFormEasters').value,
+    contribution: document.getElementById('subFormContribution').checked,
+    sex: sex,
+    guestBy: document.getElementById('subFormGuestBy').value,
+    walkIn: document.getElementById('subFormWalkIn').option.value,
+    easterKind: document.getElementById('subFormEasterKind').option.value
   };
 };
 
