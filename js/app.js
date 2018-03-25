@@ -23,7 +23,7 @@ const request = obj => {
 
 const saySomething = () => alert("Funca");
 
-const getUser = () => document.getElementById("user").value;
+const getUser = () => document.getElementById("user").value.toLowerCase();
 const getPass = () => document.getElementById("pass").value;
 const getButton = () => document.getElementById("logButton");
 

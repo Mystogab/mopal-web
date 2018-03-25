@@ -57,11 +57,29 @@ html {height: 100%}
 
 
   <!-- Modal for blockUI -->
-  <div id="blockUI" class="w3-modal" style="z-index:5">
+  <div id="blockUI" class="w3-modal" style="z-index:6">
     <div class="w3-modal-content">
       <div class="w3-container"></div>
     </div>
   </div>
+
+    <!-- Modal for selecet Adult Responsable -->
+  <div id="subFormSelectAdult" class="w3-modal" style="z-index:5">
+    <div class="w3-modal-content">
+      <div class="w3-container">
+        <iframe id="tutorFrame" src="/tutor" style="height:400px;width:100%;border:none"></iframe>
+      </div>
+    </div>
+  </div>
+
+    <!-- Modal for edit Guest -->
+  <div id="subFormEditGuest" class="w3-modal" style="z-index:5">
+    <div class="w3-modal-content" style="width: 450px">
+      <div id="subFormEditGuestContent" class="w3-container">
+      </div>
+    </div>
+  </div>
+
 
   <!-- Modal for inscriptions -->
       <div id="subModal" class="w3-modal">
@@ -82,7 +100,39 @@ html {height: 100%}
     <input id="subFormSurname" class="w3-input w3-border" type="text" placeholder="Perez">
   </div>
   <div class="w3-third">
-    <label></label>
+    <form class="w3-container">
+      Localidad:
+      <select id="subFormLocation" class="w3-select w3-border" name="option">
+        <option value="" disabled selected>seleccione</option>
+        <option value="JCP">José Clemente Paz</option>
+        <option value="MALVINAS">Malvinas Argentinas</option>
+        <option value="SAN_ATILIO">San Atilio</option>
+        <option value="OTRO">OTRO</option>
+      </select>
+    </form>
+  </div>
+</div>
+
+<p></p>
+
+<div class="w3-row-padding">
+  <div class="w3-third">
+    <form class="w3-container">
+      Estado Civil:
+      <select id="subFormMaritalStatus" class="w3-select w3-border" name="option">
+        <option value="" disabled selected>seleccione</option>
+        <option value="1">Soltero/a</option>
+        <option value="2">Comprometido/a</option>
+        <option value="3">Casado/a</option>
+        <option value="4">Divorsiado/a</option>
+        <option value="5">Viudo/a</option>
+        <option value="6">Concubinato</option>
+      </select>
+    </form>
+  </div>
+  <div class="w3-third">
+    <label>Hijos: </label>
+    <input id="subFormChilds" class="w3-input w3-border" type="number" placeholder="0" value=0>
   </div>
 </div>
 
@@ -91,7 +141,7 @@ html {height: 100%}
 <div class="w3-row-padding">
   <div class="w3-third">
     <label>Edad: </label>
-    <input id="subFormAge" class="w3-input w3-border" type="number" placeholder="33">
+    <input id="subFormAge" onfocusout="subFomrAgeToggleTutor()" class="w3-input w3-border" type="number" placeholder="33">
   </div>
   <div class="w3-third">
     <label>Telefono: </label>
@@ -147,9 +197,25 @@ html {height: 100%}
       Camina en: 
       <select class="w3-select w3-border" name="option">
         <option value="1" selected>Ninguna</option>
-        <option value="2">Camino</option>
-        <option value="3">INI1A</option>
-        <option value="4">INI1B</option>
+        <option value="INI2A">Ini 2 (A)</option>
+        <option value="INI2B">Ini 2 (B)</option>
+        <option value="PROFU1C">Profu 1 (C)</option>
+        <option value="PROFU1A-JOV">Profu 1 (A) Jovenes</option>
+        <option value="PROFU1B">Profu 1 (B)</option>
+        <option value="PROFU2A-INT">Profu 2 (A) Intermedia</option>
+        <option value="PROFU3">Profu 3</option>
+        <option value="PROFU4A">Profu 4 (A)</option>
+        <option value="EVA2A-JCP">Evangelio 2 (A) JCP</option>
+        <option value="EVA2B-JCP">Evangelio 2 (B) JCP</option>
+        <option value="EVA3-SA">Evangelio 3 S.A.</option>
+        <option value="PERFE">Perfeccionamiento</option>
+        <option value="PCV1A-JCP">Preparación a C.V. 1 (A) JCP</option>
+        <option value="CV1">Comunidad de Vida 1</option>
+        <option value="CV2">Comunidad de Vida 2</option>
+        <option value="CV3">Comunidad de Vida 3</option>
+        <option value="CV4">Comunidad de Vida 4</option>
+        <option value="CV5">Comunidad de Vida 5</option>
+        <option value="OTHER">Otra</option>
       </select>
     </form>
   </div>
@@ -167,7 +233,7 @@ html {height: 100%}
   </div>
   <div class="w3-third">
     <label>Adulto responsable: </label>
-    <input id="subFormAdultResponsable" class="w3-input w3-border" type="text" placeholder="Tutor" readonly disabled>
+    <input onclick="modalTutorOpen()" id="subFormAdultResponsable" class="w3-input w3-border" type="text" placeholder="Tutor" readonly disabled>
   </div>
 </div>
 
@@ -175,7 +241,7 @@ html {height: 100%}
 
 <div class="w3-display-container" style="float:right;right:10px">
   <div class="w3-padding-16">
-    <button class="w3-button w3-red">Cancelar</button>
+    <button class="w3-button w3-red" onclick="document.getElementById('subModal').style.display='none'">Cancelar</button>
     <button class="w3-button w3-green" onclick="subscribeGuest()">Inscribir</button>
   </div>
 </div>

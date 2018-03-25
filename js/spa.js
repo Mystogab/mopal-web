@@ -43,8 +43,26 @@ async function apiRequest (path, method, body) {
 //Call to modal subscribe:
 function modalSubOpen() {
   document.getElementById('subFormMain').reset();
+  document.getElementById('subFormWalkIn').reset();
+  document.getElementById('subFormAge').value = '';
+  document.getElementById('subFormPhone').value = '';
+  document.getElementById('subFormEasters').value = '';
+  document.getElementById('sexMale').checked = true;
+  document.getElementById('subFormGuestBy').value = '';
+  document.getElementById('subFormEasterKind').reset();
+  document.getElementById('subFormContribution').checked = false;
+  document.getElementById('subFormAdultResponsable').disabled = true;
+  document.getElementById('subFormAdultResponsable').value = '';
   document.getElementById('subModal').style.display='block';
+  document.getElementById('subFormChilds').value = 0;
+  document.getElementById('subFormMaritalStatus').value = '';
 };
+
+//Call to modal tutor:
+function modalTutorOpen() {
+  document.getElementById('tutorFrame').contentWindow.location.reload();
+  document.getElementById('subFormSelectAdult').style.display='block';
+}
 
 const blockUi = () => {
   const blockDiv = document.getElementById('blockUI');
@@ -59,24 +77,72 @@ const extractDataFromSubForm = () => {
   return {
     name: document.getElementById('subFormName').value,
     surname: document.getElementById('subFormSurname').value,
-    age: document.getElementById('subFormAge').value,
-    phone: document.getElementById('subFormPhone').value,
-    easters: document.getElementById('subFormEasters').value,
+    age: parseInt(document.getElementById('subFormAge').value),
+    phone: parseInt(document.getElementById('subFormPhone').value),
+    easters: parseInt(document.getElementById('subFormEasters').value),
     contribution: document.getElementById('subFormContribution').checked,
     sex: sex,
+    tutor: document.getElementById('subFormAdultResponsable').value,
     guestBy: document.getElementById('subFormGuestBy').value,
     walkIn: document.getElementById('subFormWalkIn').option.value,
-    easterKind: document.getElementById('subFormEasterKind').option.value
+    easterKind: document.getElementById('subFormEasterKind').option.value, 
+    local: document.getElementById('subFormLocation').value,
+    marital: document.getElementById('subFormMaritalStatus').value,
+    childs: document.getElementById('subFormChilds').value
   };
 };
+
+const verifySubData = (newGuest) => {
+  //validate if a child has a tutor
+  if (newGuest.age < 15 && newGuest.tutor === '') return false;
+  //verify if have necesary data
+  if (newGuest.name === '' || newGuest.surname === '' || newGuest.local === '' || newGuest.phone === '' || newGuest.easters < 1 || newGuest.easterKind === '' || newGuest.guestBy === '' || newGuest.childs < 0 || isNaN(newGuest.age) || newGuest.marital === '') {
+    return false
+  };
+  return true;
+}
 
 //Subscribe Handler:
 async function subscribeGuest() {
   //first block UI:
-  //blockUi();
+  blockUi();
   //then fetch data:
   const dataFormSubsc = extractDataFromSubForm();
-  alert(JSON.stringify(dataFormSubsc));
+  if (!verifySubData(dataFormSubsc)) {
+    alert('Verifique los datos por favor');
+    blockUi();
+  }
+  else {
+    apiRequest('user/guest', 'POST', dataFormSubsc)
+      .then(res => alert(res))
+      .then(document.getElementById('subModal').style.display='none');
+  }
+  //alert(JSON.stringify(dataFormSubsc));
+  //unlockUI
+  //blockUi();
+}
+
+function subFomrAgeToggleTutor() {
+  let value = document.getElementById('subFormAge').value;
+  if (parseInt(value) < 15) document.getElementById('subFormAdultResponsable').disabled = false;
+  else document.getElementById('subFormAdultResponsable').disabled = true;
+}
+
+function updateGuest(guestId) {
+  blockUi();
+  let body = {
+    dayOne: document.getElementById('dayOne').checked,
+    dayTwo: document.getElementById('dayTwo').checked,
+    dayThree: document.getElementById('dayThree').checked,
+    contribution: document.getElementById('TheContrib').checked
+  };
+  body.id = guestId;
+  apiRequest('user/guest', 'PUT', body)
+    .then(res => {
+      alert(res);
+      document.getElementById('subFormEditGuest').style.display='none';
+    })
+    .then(blockUi());
 }
 
 //set handlers for bar click trigger:

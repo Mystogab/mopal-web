@@ -26,7 +26,7 @@
 <div class="w3-row-padding">
   <div class="w3-third">
     <label>Edad: </label>
-    <input id="subFormAge" class="w3-input w3-border" type="number" placeholder="33">
+    <input id="subFormAge" onfocusout="subFomrAgeToggleTutor()" class="w3-input w3-border" type="number" placeholder="33">
   </div>
   <div class="w3-third">
     <label>Telefono: </label>
@@ -41,22 +41,22 @@
 <p></p>
 
 <div class="w3-row-padding">
-  <div class="w3-third">
-    <form id="SubSexForm" class="w3-container w3-card-4">
+  <div id="test" class="w3-third">
+    <form class="w3-container">
       <h4>Sexo</h4>
       <p>
       <label>
-        <input class="w3-radio" type="radio" name="gender" value="male" checked>
+        <input id="sexMale" class="w3-radio" type="radio" name="gender" value="male" checked>
       Hombre
       </label></p>
       <p>
       <label>
-      <input class="w3-radio" type="radio" name="gender" value="female">
+      <input id="sexFemale" class="w3-radio" type="radio" name="gender" value="female">
       Mujer
       </label></p>
       <p>
       <label>
-      <input class="w3-radio" type="radio" name="gender" value="">
+      <input id="sexUnk" class="w3-radio" type="radio" name="gender" value="">
       NS/NC
       </label></p>
     </form>
@@ -116,6 +116,5 @@
 </div>
 
 </form>
-
 </body>
 </html>
