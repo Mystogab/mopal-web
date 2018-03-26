@@ -7,7 +7,7 @@ function init () {
   data.headers = {};
   data.headers.token = localStorage.mopalToken;
   //Load API URL:
-  data.apiUrl = 'http://gabpc.ddns.net:3000/';
+  data.apiUrl = 'http://localhost:3000/';
 
   //Load horizontal bar items
   data.views = {};

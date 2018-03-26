@@ -27,7 +27,7 @@ const getUser = () => document.getElementById("user").value.toLowerCase();
 const getPass = () => document.getElementById("pass").value;
 const getButton = () => document.getElementById("logButton");
 
-const api = 'http://gabpc.ddns.net:3000/'
+const api = 'http://localhost:3000/'
 
 
 const doLogin = () => {

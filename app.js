@@ -19,6 +19,16 @@ app.use('/js*', (req, res) => {
   res.sendFile(path.join(__dirname + req.originalUrl));
 });
 
+
+app.use('/css*', (req, res) => {
+  res.sendFile(path.join(__dirname + req.originalUrl));
+});
+
+
+app.use('/fonts*', (req, res) => {
+  res.sendFile(path.join(__dirname + req.originalUrl));
+});
+
 //html pages
 
 app.get('/', (req, res) => {
