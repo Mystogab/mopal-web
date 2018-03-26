@@ -34,13 +34,16 @@ app.get('/home', (req, res) => {
     token = req.query.token;
     //validate(token)
     console.log(token);
-    if(token === 'VALID') return res.sendFile(__dirname + '/spa.html');
-    if(token === 'invalid') res.redirect('/login');
-    res.redirect('/login');
+    if(token === 'invalid') {
+      res.redirect('/login');
+    } else {
+      res.sendFile(__dirname + '/spa.html');
+    }
+    //res.redirect('/login');
   } else {
     res.sendFile(path.join(__dirname + '/loader.html'));
   }
-  res.sendFile(path.join(__dirname + '/loader.html'));
+  //res.sendFile(path.join(__dirname + '/loader.html'));
 });
 
 app.get('/subscribe', (req, res) => {

@@ -50,7 +50,7 @@ const drawGuestEditModal = (guest) => {
   content.innerHTML += `<div class="w3-display-container" style="float:right;right:10px">
   <div class="w3-padding-16">
     <button class="w3-button w3-red" onclick="document.getElementById('subFormEditGuest').style.display='none'">Cancelar</button>
-    <button class="w3-button w3-green" onclick="updateGuest('${guest.id}')">Actualizar</button>
+    <button class="w3-button w3-green" onclick="updateGuest('${guest._id}')">Actualizar</button>
   </div>
 </div>`;
   parent.document.getElementById('subFormEditGuest').style.display='block';
@@ -65,7 +65,7 @@ const modalStart = (guestId) => {
 }
 
 const drawTableElement = (el) => {
-  return `<tr onclick="modalStart('${el.id}')">
+  return `<tr onclick="modalStart('${el._id}')">
     <td>${el.name}</td>
     <td>${el.surname}</td>
     <td>${el.age}</td>

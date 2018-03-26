@@ -7,7 +7,7 @@ const selectGuest = (guestId, guestName) => {
 }
 
 const drawTableElement = (el) => {
-  return `<tr onclick="selectGuest('${el.id}', '${el.name + el.surname}')">
+  return `<tr onclick="selectGuest('${el._id}', '${el.name + el.surname}')">
     <td>${el.name}</td>
     <td>${el.surname}</td>
     <td>${el.age}</td>

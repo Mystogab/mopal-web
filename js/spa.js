@@ -7,7 +7,7 @@ function init () {
   data.headers = {};
   data.headers.token = localStorage.mopalToken;
   //Load API URL:
-  data.apiUrl = 'http://localhost:3000/';
+  data.apiUrl = 'http://gabpc.ddns.net:3000/';
 
   //Load horizontal bar items
   data.views = {};
@@ -88,7 +88,7 @@ const extractDataFromSubForm = () => {
     easterKind: document.getElementById('subFormEasterKind').option.value, 
     local: document.getElementById('subFormLocation').value,
     marital: document.getElementById('subFormMaritalStatus').value,
-    childs: document.getElementById('subFormChilds').value
+    childs: parseInt(document.getElementById('subFormChilds').value)
   };
 };
 
@@ -97,7 +97,7 @@ const verifySubData = (newGuest) => {
   if (newGuest.age < 15 && newGuest.tutor === '') return false;
   //verify if have necesary data
   if (newGuest.name === '' || newGuest.surname === '' || newGuest.local === '' || newGuest.phone === '' || newGuest.easters < 1 || newGuest.easterKind === '' || newGuest.guestBy === '' || newGuest.childs < 0 || isNaN(newGuest.age) || newGuest.marital === '') {
-    return false
+    return false;
   };
   return true;
 }
@@ -115,7 +115,8 @@ async function subscribeGuest() {
   else {
     apiRequest('user/guest', 'POST', dataFormSubsc)
       .then(res => alert(res))
-      .then(document.getElementById('subModal').style.display='none');
+      .then(document.getElementById('subModal').style.display='none')
+      .then(blockUi());
   }
   //alert(JSON.stringify(dataFormSubsc));
   //unlockUI
