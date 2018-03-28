@@ -6,9 +6,38 @@ const drawGuestEditModal = (guest) => {
   let content = parent.document.getElementById('subFormEditGuestContent');
   content.innerHTML = '';
   content.innerHTML += '<p>';
+  const translations = {
+    name: 'Nombre: ',
+    surname: 'Apellido',
+    age: 'Edad',
+    phone: 'Telefono',
+    easters: 'Numero de Pascua',
+    tutor: 'Adulto Responsable',
+    sex: 'Sexo',
+    guestBy: 'Invitado por',
+    walkIn: 'Comunidad en la que Camina',
+    easterKind: 'Tipo de Pascua que realiza',
+    subLocal: 'Barrio',
+    local: 'Localidad',
+    marital: 'Estado Civil',
+    childs: 'Hijos',
+    mail: 'Correo electronico',
+    subscribedBy: 'Fue inscripto por'
+  };
+
+  const translateKeyResult = (keyResult) => {
+    if (keyResult === 'male') return 'Hombre';
+    else {
+      if (keyResult === 'female') return 'Mujer';
+      else {
+        return keyResult;
+      }
+    }
+  };
+
   Object.keys(guest).forEach(key => {
-    if (key !== 'dayOne' && key !== 'dayTwo' && key !== 'dayThree' && key !== 'contribution') {
-      content.innerHTML += `${key + ': ' + guest[key]}<br>`;
+    if (key !== 'dayOne' && key !== 'dayTwo' && key !== 'dayThree' && key !== 'contribution' && key !== '_id' && key !== '__v') {
+      content.innerHTML += `<b>${translations[key] + '</b>: ' + translateKeyResult(guest[key])}<br>`;
     };
   });
   content.innerHTML += '</p>';

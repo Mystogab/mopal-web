@@ -1,8 +1,12 @@
 document.addEventListener('DOMContentLoaded', init, false);
 let data = {};
 
+function toOption(oneLocal) {
+  return `<option value="${oneLocal.name}|${oneLocal.id}">${oneLocal.name}</option>`;
+}
+
 //Initial function to load default data on page
-function init () {
+async function init () {
   //Load to headers of all API request
   data.headers = {};
   data.headers.token = localStorage.mopalToken;
@@ -21,13 +25,47 @@ function init () {
   };
   //Set current selected page:
   data.views.currentSection = 'barHome';
+
+  //Promises, start async work
+  //first block ui:
+  blockUi();
+
+  //creates locales for data
+  data.locales = {};
+
   //Load user corner
   data.views.userCorner = document.getElementById("userSpace");
-  userCorenerP = request({ headers: data.headers, url: data.apiUrl + 'user/info'})
+  const userCorenerP = request({ headers: data.headers, url: data.apiUrl + 'user/info'})
     .then(JSON.parse)
     .then((user) => data.views.userCorner.innerHTML = user.name)
     .then((user) => data.user = user);
   
+  //load to subform the locations
+  data.views.subsLocations = document.getElementById("subFormLocation");
+  const locationsP = request({ headers: data.headers, url: data.apiUrl + 'local/BsAs'})
+    .then(JSON.parse)
+    .then(res => res.map(toOption).join(' '))
+    .then(parsedRes => {
+      data.views.subsLocations.innerHTML = '<option value="" disabled="" selected="">seleccione</option>' + parsedRes;
+    });
+
+  //load on DATA the CABA and JCP's locales:
+  const localCabaP =request({ headers: data.headers, url: data.apiUrl + 'local/Caba'})
+    .then(JSON.parse)
+    .then(res => res.map(toOption).join(' '))
+    .then(res => { data.locales.caba = res; });
+
+  //load on DATA the CABA and JCP's locales:
+  const localJcpP =request({ headers: data.headers, url: data.apiUrl + 'local/Jcp'})
+    .then(JSON.parse)
+    .then(res => res.map(toOption).join(' '))
+    .then(res => { data.locales.jcp = res; });
+
+
+  //wait for promises to end, and unlock UI
+  await Promise.all([userCorenerP, locationsP, localCabaP, localJcpP]);
+  blockUi();
+
 };
 
 //Create apirequest for simplify:
@@ -81,7 +119,9 @@ const extractDataFromSubForm = () => {
     phone: parseInt(document.getElementById('subFormPhone').value),
     easters: parseInt(document.getElementById('subFormEasters').value),
     contribution: document.getElementById('subFormContribution').checked,
+    subLocal: document.getElementById('subFormSubLocation').value,
     sex: sex,
+    mail: document.getElementById('subFormEmail').value,
     tutor: document.getElementById('subFormAdultResponsable').value,
     guestBy: document.getElementById('subFormGuestBy').value,
     walkIn: document.getElementById('subFormWalkIn').option.value,
@@ -95,6 +135,11 @@ const extractDataFromSubForm = () => {
 const verifySubData = (newGuest) => {
   //validate if a child has a tutor
   if (newGuest.age < 15 && newGuest.tutor === '') return false;
+
+  //verify if local is required:
+  if (!document.getElementById('subFormSubLocation').disabled) {
+    if (newGuest.subLocal === '') return false;
+  }
   //verify if have necesary data
   if (newGuest.name === '' || newGuest.surname === '' || newGuest.local === '' || newGuest.phone === '' || newGuest.easters < 1 || newGuest.easterKind === '' || newGuest.guestBy === '' || newGuest.childs < 0 || isNaN(newGuest.age) || newGuest.marital === '') {
     return false;
@@ -114,7 +159,8 @@ async function subscribeGuest() {
   }
   else {
     apiRequest('user/guest', 'POST', dataFormSubsc)
-      .then(res => alert(res))
+      .then(JSON.parse)
+      .then(res => alert(res.msg))
       .then(document.getElementById('subModal').style.display='none')
       .then(blockUi());
   }
@@ -129,6 +175,24 @@ function subFomrAgeToggleTutor() {
   else document.getElementById('subFormAdultResponsable').disabled = true;
 }
 
+function subFormLocationChange() {
+  let locationId = document.getElementById('subFormLocation').value.split('|')[1];
+  let subLocat = document.getElementById('subFormSubLocation');
+  if (locationId === '1' || locationId === '1665') {
+    subLocat.innerHTML = `<option value="" disabled selected>seleccione</option>
+    <option value="OTRO">OTRO</option>`;
+    if (locationId === '1') subLocat.innerHTML += data.locales.caba;
+    else {
+      subLocat.innerHTML += data.locales.jcp;
+    }
+    subLocat.disabled = false;
+  } else {
+    subLocat.innerHTML = `<option value="" disabled selected>seleccione</option>
+        <option value="OTRO">OTRO</option>`;
+    subLocat.disabled = true;
+  }
+}
+
 function updateGuest(guestId) {
   blockUi();
   let body = {
@@ -139,8 +203,9 @@ function updateGuest(guestId) {
   };
   body.id = guestId;
   apiRequest('user/guest', 'PUT', body)
+    .then(JSON.parse)
     .then(res => {
-      alert(res);
+      alert(res.msg);
       document.getElementById('subFormEditGuest').style.display='none';
     })
     .then(blockUi());

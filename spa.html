@@ -17,7 +17,7 @@ html {height: 100%}
 <!-- Top container -->
 <div class="w3-bar w3-top w3-blue w3-large" style="z-index:3">
   <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
-  <span class="w3-bar-item w3-left">MOPAL Event App v0.1 BETA</span>
+  <span class="w3-bar-item w3-left">MOPAL Event App v0.2 BETA</span>
   <span id="userSpace" class="w3-bar-item w3-right">
     ...
   </span>
@@ -102,7 +102,7 @@ html {height: 100%}
   <div class="w3-third">
     <form class="w3-container">
       Localidad:
-      <select id="subFormLocation" class="w3-select w3-border" name="option">
+      <select id="subFormLocation" onchange="subFormLocationChange()" class="w3-select w3-border" name="option">
         <option value="" disabled selected>seleccione</option>
         <option value="JCP">José Clemente Paz</option>
         <option value="MALVINAS">Malvinas Argentinas</option>
@@ -134,6 +134,15 @@ html {height: 100%}
     <label>Hijos: </label>
     <input id="subFormChilds" class="w3-input w3-border" type="number" placeholder="0" value=0>
   </div>
+  <div class="w3-third">
+    <form class="w3-container">
+      Barrio:
+      <select id="subFormSubLocation" class="w3-select w3-border" name="option" disabled>
+        <option value="" disabled selected>seleccione</option>
+        <option value="OTRO">OTRO</option>
+      </select>
+    </form>
+  </div>
 </div>
 
 <p></p>
@@ -150,6 +159,15 @@ html {height: 100%}
   <div class="w3-third">
     <label>N° Pascuas: </label>
     <input id="subFormEasters" class="w3-input w3-border" type="number" value="1">
+  </div>
+</div>
+
+<p></p>
+
+<div class="w3-row-padding">
+  <div class="w3-third">
+    <label>email: </label>
+    <input id="subFormEmail" class="w3-input w3-border" type="text" placeholder="user@domain.com">
   </div>
 </div>
 
@@ -196,13 +214,14 @@ html {height: 100%}
     <form id="subFormWalkIn" class="w3-container">
       Camina en: 
       <select class="w3-select w3-border" name="option">
-        <option value="1" selected>Ninguna</option>
+        <option value="NONE" selected>Ninguna</option>
         <option value="INI2A">Ini 2 (A)</option>
         <option value="INI2B">Ini 2 (B)</option>
         <option value="PROFU1C">Profu 1 (C)</option>
         <option value="PROFU1A-JOV">Profu 1 (A) Jovenes</option>
         <option value="PROFU1B">Profu 1 (B)</option>
         <option value="PROFU2A-INT">Profu 2 (A) Intermedia</option>
+        <option value="PROFU2-JOV">Profu 2 Jovenes</option>
         <option value="PROFU3">Profu 3</option>
         <option value="PROFU4A">Profu 4 (A)</option>
         <option value="EVA2A-JCP">Evangelio 2 (A) JCP</option>
