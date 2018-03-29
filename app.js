@@ -64,6 +64,10 @@ app.get('/tutor', (req, res) => {
   res.sendFile(path.join(__dirname + '/views/selecTutor.html'));
 });
 
+app.get('/stats', (req, res) => {
+  res.sendFile(path.join(__dirname + '/views/stats.html'));
+});
+
 
 
 module.exports = app;

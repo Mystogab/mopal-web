@@ -17,7 +17,7 @@ html {height: 100%}
 <!-- Top container -->
 <div class="w3-bar w3-top w3-blue w3-large" style="z-index:3">
   <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
-  <span class="w3-bar-item w3-left">MOPAL Event App v0.2 BETA</span>
+  <span class="w3-bar-item w3-left">MOPAL Event App v0.24 BETA</span>
   <span id="userSpace" class="w3-bar-item w3-right">
     ...
   </span>
@@ -36,6 +36,7 @@ html {height: 100%}
     <a href="#" id="barPersons" class="w3-bar-item w3-button w3-padding" onclick="barClick('barPersons')"><i class="fa fa-user fa-fw"></i>  Personas</a>
     <a href="#" id="barSuscrib" class="w3-bar-item w3-button w3-padding" onclick="barClick('barSuscrib')"><i class="fa fa-user-plus fa-fw"></i>  Inscripciones</a>
     <a href="#" id="barEvents" class="w3-bar-item w3-button w3-padding" onclick="barClick('barEvents')"><i class="fa fa-address-card-o fa-fw"></i>  Eventos</a>
+    <a href="#" id="barStats" class="w3-bar-item w3-button w3-padding" onclick="barClick('barStats')"><i class="fa fa-bar-chart fa-fw"></i>  Estadisticas</a>
     <a href="#" id="barConfig" class="w3-bar-item w3-button w3-padding" onclick="barClick('barConfig')"><i class="fa fa-cog fa-fw"></i>  Configuracion</a><br><br>
     <a href="#" id="barExit" class="w3-bar-item w3-button w3-padding" onclick="barClick('barExit')"><i class="fa fa-close fa-fw"></i>  Salir</a><br><br>
   </div>
@@ -53,13 +54,15 @@ html {height: 100%}
     <h5><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
   </header>
 
-  <iframe id="mainFrame" src="asd" style="height:100%;width:100%;border:none"></iframe>
+  <iframe id="mainFrame" src="mainhome" style="height:100%;width:100%;border:none"></iframe>
 
 
   <!-- Modal for blockUI -->
-  <div id="blockUI" class="w3-modal" style="z-index:6">
-    <div class="w3-modal-content">
-      <div class="w3-container"></div>
+<div id="blockUI" class="w3-modal" style="padding-top: 45vh;z-index:6">
+    <div class="w3-modal-content w3-card-4" style="width: 320px;height: 0px">
+      <div class="w3-container w3-teal w3-center"> 
+        <h2>Cargando...</h2>
+      </div>
     </div>
   </div>
 
@@ -121,12 +124,12 @@ html {height: 100%}
       Estado Civil:
       <select id="subFormMaritalStatus" class="w3-select w3-border" name="option">
         <option value="" disabled selected>seleccione</option>
-        <option value="1">Soltero/a</option>
-        <option value="2">Comprometido/a</option>
-        <option value="3">Casado/a</option>
-        <option value="4">Divorsiado/a</option>
-        <option value="5">Viudo/a</option>
-        <option value="6">Concubinato</option>
+        <option value="Soltero">Soltero/a</option>
+        <option value="Comprometido">Comprometido/a</option>
+        <option value="Casado">Casado/a</option>
+        <option value="Divorsiado">Divorsiado/a</option>
+        <option value="Viudo">Viudo/a</option>
+        <option value="Concubinato">Concubinato</option>
       </select>
     </form>
   </div>
@@ -224,11 +227,13 @@ html {height: 100%}
         <option value="PROFU2-JOV">Profu 2 Jovenes</option>
         <option value="PROFU3">Profu 3</option>
         <option value="PROFU4A">Profu 4 (A)</option>
+        <option value="PROFU4B">Profu 4 (B)</option>
         <option value="EVA2A-JCP">Evangelio 2 (A) JCP</option>
         <option value="EVA2B-JCP">Evangelio 2 (B) JCP</option>
         <option value="EVA3-SA">Evangelio 3 S.A.</option>
         <option value="PERFE">Perfeccionamiento</option>
         <option value="PCV1A-JCP">Preparación a C.V. 1 (A) JCP</option>
+        <option value="PCV1B-SA">Preparación a C.V. 1 (B) S.A</option>
         <option value="CV1">Comunidad de Vida 1</option>
         <option value="CV2">Comunidad de Vida 2</option>
         <option value="CV3">Comunidad de Vida 3</option>
@@ -243,10 +248,11 @@ html {height: 100%}
       Tipo de Pascua:
       <select class="w3-select w3-border" name="option">
         <option value="" disabled selected>none</option>
-        <option value="1">Jovenes</option>
-        <option value="2">Intermedio</option>
-        <option value="3">Adultos</option>
-        <option value="4">TODO</option>
+        <option value="Niños">Niños</option>
+        <option value="Crecimiento">Crecimiento</option>
+        <option value="Jovenes">Jovenes</option>
+        <option value="Intermedia">Intermedia</option>
+        <option value="Adultos">Adultos</option>
       </select>
     </form>
   </div>

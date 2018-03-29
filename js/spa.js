@@ -11,7 +11,7 @@ async function init () {
   data.headers = {};
   data.headers.token = localStorage.mopalToken;
   //Load API URL:
-  data.apiUrl = 'http://localhost:3000/';
+  data.apiUrl = 'http://192.168.0.121:3000/';
 
   //Load horizontal bar items
   data.views = {};
@@ -21,7 +21,8 @@ async function init () {
     barSuscrib: document.getElementById("barSuscrib"),
     barEvents: document.getElementById("barEvents"),
     barConfig: document.getElementById("barConfig"),
-    barExit: document.getElementById("barExit")
+    barExit: document.getElementById("barExit"),
+    barStats: document.getElementById("barStats")
   };
   //Set current selected page:
   data.views.currentSection = 'barHome';
@@ -84,13 +85,16 @@ function modalSubOpen() {
   document.getElementById('subFormWalkIn').reset();
   document.getElementById('subFormAge').value = '';
   document.getElementById('subFormPhone').value = '';
-  document.getElementById('subFormEasters').value = '';
+  document.getElementById('subFormEasters').value = 1;
   document.getElementById('sexMale').checked = true;
   document.getElementById('subFormGuestBy').value = '';
   document.getElementById('subFormEasterKind').reset();
   document.getElementById('subFormContribution').checked = false;
   document.getElementById('subFormAdultResponsable').disabled = true;
   document.getElementById('subFormAdultResponsable').value = '';
+  document.getElementById('subFormSubLocation').value = '';
+  document.getElementById('subFormEmail').value = '';
+  document.getElementById('subFormSubLocation').disabled = true;
   document.getElementById('subModal').style.display='block';
   document.getElementById('subFormChilds').value = 0;
   document.getElementById('subFormMaritalStatus').value = '';
@@ -102,7 +106,7 @@ function modalTutorOpen() {
   document.getElementById('subFormSelectAdult').style.display='block';
 }
 
-const blockUi = () => {
+function blockUi() {
   const blockDiv = document.getElementById('blockUI');
   if (blockDiv.style.display == 'block') blockDiv.style.display = 'none';
   else blockDiv.style.display = 'block';
@@ -140,8 +144,12 @@ const verifySubData = (newGuest) => {
   if (!document.getElementById('subFormSubLocation').disabled) {
     if (newGuest.subLocal === '') return false;
   }
+
+  if (newGuest.phone === null) return false;
+
+  if (newGuest.childs === null || isNaN(newGuest.childs)) return false;
   //verify if have necesary data
-  if (newGuest.name === '' || newGuest.surname === '' || newGuest.local === '' || newGuest.phone === '' || newGuest.easters < 1 || newGuest.easterKind === '' || newGuest.guestBy === '' || newGuest.childs < 0 || isNaN(newGuest.age) || newGuest.marital === '') {
+  if (newGuest.name === '' || newGuest.surname === '' || newGuest.local === '' || isNaN(newGuest.phone) || newGuest.easters < 1 || newGuest.easterKind === '' || newGuest.guestBy === '' || newGuest.childs < 0 || isNaN(newGuest.age) || newGuest.marital === '') {
     return false;
   };
   return true;
@@ -162,7 +170,8 @@ async function subscribeGuest() {
       .then(JSON.parse)
       .then(res => alert(res.msg))
       .then(document.getElementById('subModal').style.display='none')
-      .then(blockUi());
+      .then(blockUi())
+      .catch(err => alert('Error: No se pudo guardar, contactar administrador: tipo de error: ' + err));
   }
   //alert(JSON.stringify(dataFormSubsc));
   //unlockUI
@@ -219,13 +228,18 @@ const handlers = {
       .innerHTML = '<h5><b><i class="fa fa-user-plus"></i> Inscripciones</b></h5>';
   },
   barHome: () => {
-    document.getElementById("mainFrame").src = '/zaraza';
+    document.getElementById("mainFrame").src = '/mainhome';
     document.getElementById("fmHeader")
     .innerHTML = '<h5><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>';
   },
   barExit: () => {
     localStorage.clear();
     window.location = '/login';
+  },
+  barStats: () => {
+    document.getElementById("mainFrame").src = '/stats';
+    document.getElementById("fmHeader")
+    .innerHTML = '<h5><b><i class="fa fa-bar-chart fa-fw"></i> Estadisticas</b></h5>';
   }
 };
 

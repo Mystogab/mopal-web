@@ -7,7 +7,7 @@ const drawGuestEditModal = (guest) => {
   content.innerHTML = '';
   content.innerHTML += '<p>';
   const translations = {
-    name: 'Nombre: ',
+    name: 'Nombre',
     surname: 'Apellido',
     age: 'Edad',
     phone: 'Telefono',
@@ -142,6 +142,8 @@ function init () {
             .then(JSON.parse)
             .then(res => document.getElementById('searchResults').innerHTML += drawTable(res));
         }, 500);
+      } else {
+        clearTimeout(timeout);
       }
       
   };
