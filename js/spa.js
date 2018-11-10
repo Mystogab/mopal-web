@@ -11,7 +11,7 @@ async function init () {
   data.headers = {};
   data.headers.token = localStorage.mopalToken;
   //Load API URL:
-  data.apiUrl = 'http://192.168.0.121:3000/';
+  data.apiUrl = 'http://192.168.0.120:3000/';
 
   //Load horizontal bar items
   data.views = {};

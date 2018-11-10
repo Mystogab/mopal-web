@@ -27,7 +27,7 @@ const getUser = () => document.getElementById("user").value.toLowerCase();
 const getPass = () => document.getElementById("pass").value;
 const getButton = () => document.getElementById("logButton");
 
-const api = 'http://192.168.0.121:3000/';
+const api = 'http://192.168.0.120:3000/';
 
 
 const doLogin = () => {
